@@ -47,7 +47,17 @@ def analysis(info):
     img = common.transform(img, info[POINTS])
     img = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
     # 获取机架的光纤排布方向
+    if debug_mode:
+        img_path = os.path.split(info[ADDR])[-1]
+        info[IMG_ID], _ = os.path.splitext(img_path)
+
     orientation = regOrientationBatch(img, info)
+    if debug_mode:
+        if IS_ROTATE in info and debug_mode:
+            if orientation == info[IS_ROTATE]:
+                logger.debug("Image :[{}]: Orientation recognition result is [TRUE].".format(info[ADDR]))
+            else:
+                logger.debug("Image :[{}] Orientation recognition result is [FALSE]".format(info[ADDR]))
     if orientation == -1:
         logger.warning("Image :[{}]: Unknown orientation of frame.".format(info[ADDR]))
     frame_type = common.queryType(info[OUTER_COLOR], info[INNER_COLOR])

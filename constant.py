@@ -12,12 +12,15 @@
 """
 import os
 
+debug_mode = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-#测试图片存储路径
+# 测试图片存储路径
 IMG_DIR = 'stores/images'
 CONFIG_DIR = 'stores/config'
-#图片自定义存储路径
-IMG_PATH=''
+TEST_DIR = 'test'
+abs_test_dir = os.path.join(PROJECT_DIR, TEST_DIR)
+# 图片自定义存储路径
+IMG_PATH = ''
 # 机架颜色的字符串常量
 BLUE_STR = 'blue'
 RED_STR = 'red'
@@ -33,6 +36,7 @@ ROW = 'row'  # 机架行数
 COL = 'col'  # 机架列数
 
 GRID_ANALYZER_INPUT_KEYS = [OUTER_COLOR, INNER_COLOR, ADDR, POINTS]
+IMG_ID = 'imgId'
 UNKNOWN_STR = 'Unknown'
 # 类型_颜色对照表
 TYPE_2_COLOR = {1: ["cyan", "red"],

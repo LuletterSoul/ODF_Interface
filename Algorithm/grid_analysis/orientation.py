@@ -47,9 +47,11 @@ def regOrientationBatch(img, info):
     img_yellow = cv2.bitwise_and(img, img, mask=dilation)
     # 二值化
     gray = cv2.cvtColor(img_yellow, cv2.COLOR_RGB2GRAY)
+
     retval, binary = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
-    #binary, contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    _,contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # binary, contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    _, contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # 如果轮廓数目较多,去除较大的轮廓(线性轮廓像素点一般比较少)
     if len(contours) > 100:
         contours = [c for c in contours if len(c) > 150]
@@ -58,6 +60,16 @@ def regOrientationBatch(img, info):
         # print("Not supported image content.")
         # continue
         return res
+
+    if debug_mode and IMG_ID in info:
+        test_orientation_path = os.path.join(abs_test_dir, 'orientation', info[IMG_ID])
+        if not os.path.exists(test_orientation_path):
+            os.mkdir(test_orientation_path)
+        logger.info("Image id [{}]".format(info[IMG_ID]))
+        cv2.imwrite(os.path.join(test_orientation_path, 'yellow_extraction.png'), img_yellow)
+        cv2.imwrite(os.path.join(test_orientation_path, 'gray.png'), binary)
+        # filter_img = cv2.
+        cv2.drawContours()
     rgb = cv2.cvtColor(binary, cv2.COLOR_GRAY2BGR)
     thetas = []
     hor_cnt = 0

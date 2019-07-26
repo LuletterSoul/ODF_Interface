@@ -12,6 +12,7 @@ import cv2
 import json
 
 img_base_dir = os.path.join('stores', 'images')
+img_test_base_dir = os.path.join('stores', 'test')
 config_base_dir = os.path.join('stores', 'config')
 
 
@@ -34,7 +35,7 @@ def TestcalPoints():
         print(result)
 
 
-def testGridAnalyzer():
+def testGridAnalyzer(img_base_dir, config_base_dir):
     img_abs_dir = os.path.join(PROJECT_DIR, img_base_dir)
     cfg_abs_dir = os.path.join(PROJECT_DIR, config_base_dir)
 
@@ -94,6 +95,6 @@ if __name__ == '__main__':
     # common.formatColor(config_base_dir)
     # TestcalType()
     # TestcalPoints()
-    testGridAnalyzer()
+    testGridAnalyzer(img_test_base_dir, config_base_dir)
     # testPredictPorts()
     # overall()
